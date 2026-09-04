@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Financeiro - CAD CHURCH</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
+    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
+    h2, h3 { text-align: center; color: #333; }
+    label { font-weight: bold; display: block; margin-top: 10px; color: #555; }
+    input, button { width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box; }
+    button { background: #007bff; color: white; border: none; font-weight: bold; margin-top: 15px; cursor: pointer; }
+    button:hover { background: #0056b3; }
+    .resumo { margin-top: 20px; background: #e9ecef; padding: 15px; border-radius: 5px; }
+    .resumo p { font-size: 16px; margin: 5px 0; font-weight: bold; }
+    .saldo { color: #28a745; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Painel da Tesouraria</h2>
 
+    <div id="loginSection">
+      <label for="pin">Digite a Senha de Acesso:</label>
+      <input type="password" id="pin" maxlength="4" placeholder="••••">
+      <button onclick="autenticar()">Entrar</button>
+      <p id="loginError" style="color: red; text-align: center; margin-top: 10px;"></p>
+    </div>
+
+    <div id="dashboardSection" class="hidden">
+      <h3>Resumo de Saldos</h3>
+      <button onclick="carregarDados()">Atualizar Dados</button>
+      <div class="resumo">
+        <p>Total Entradas: R$ <span id="entradas">0.00</span></p>
+        <p>Total Saídas: R$ <span id="saidas">0.00</span></p>
+        <hr>
+        <p class="saldo">Saldo Atual: R$ <span id="saldo">0.00</span></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbz8lxH6Raz0qL4Ly-NgHD0n_Ai4o-P7MwJtGXjgwl8tO1fARZcGffsw7a4E9lU1SwM_/exec";
+
+    function autenticar() {
+      const pin = document.getElementById("pin").value;
+      if (pin === "1234") {
+        document.getElementById("loginSection").classList.add("hidden");
+        document.getElementById("dashboardSection").classList.remove("hidden");
+        carregarDados();
+      } else {
+        document.getElementById("loginError").innerText = "Senha incorreta!";
+      }
+    }
+
+    function carregarDados() {
+      fetch(API_URL)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("entradas").innerText = data.entradas.toFixed(2);
+          document.getElementById("saidas").innerText = data.saidas.toFixed(2);
+          document.getElementById("saldo").innerText = data.saldo.toFixed(2);
+        })
+        .catch(err => alert("Erro ao carregar os dados financeiros."));
+    }
+  </script>
+</body>
+</html>
