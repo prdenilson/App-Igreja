@@ -2,271 +2,78 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Contribuições - CAD CHURCH</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAD CHURCH - Contribuições</title>
   <style>
-    .card-banner {
-      background: linear-gradient(135deg, #111111 0%, #2a2a2a 100%);
-      color: #ffffff;
-      border-radius: var(--radius-md);
-      padding: 24px 20px;
-      text-align: center;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-    
-    .card-banner p {
-      font-size: 13px;
-      opacity: 0.85;
-      margin: 8px 0 0 0;
-      font-style: italic;
-    }
-
-    .pix-box {
-      background: #f1f3f5;
-      border: 2px dashed #32bcad;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .pix-tag {
-      background: #32bcad;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 99px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .pix-key {
-      font-family: monospace;
-      font-size: 16px;
-      font-weight: bold;
-      color: #111;
-      margin: 12px 0;
-      word-break: break-all;
-    }
-
-    .btn-copy {
-      background: #32bcad;
-      color: #ffffff;
-      border: 0;
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .type-selector {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .type-btn {
-      background: #ffffff;
-      border: 2px solid var(--border-color);
-      border-radius: 10px;
-      padding: 12px 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .type-btn.active {
-      border-color: #111111;
-      background: #111111;
-      color: #ffffff;
-    }
-
-    .type-btn span {
-      display: block;
-      font-size: 18px;
-      margin-bottom: 4px;
-    }
-
-    .type-btn small {
-      font-size: 12px;
-      font-weight: 700;
-      display: block;
-    }
-
-    .form-card {
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 20px;
-    }
-
-    .input-field {
-      margin-bottom: 16px;
-    }
-
-    .input-field label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .input-field input {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      font-size: 15px;
-      font-family: inherit;
-      outline: none;
-    }
-
-    .input-field input:focus {
-      border-color: #111111;
-    }
+    body { font-family: Arial, sans-serif; background: #f4f4f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
+    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+    h2 { text-align: center; color: #333; margin-bottom: 20px; }
+    label { font-weight: bold; display: block; margin-top: 10px; color: #555; }
+    input, select, button { width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box; }
+    button { background: #28a745; color: white; border: none; font-weight: bold; margin-top: 15px; cursor: pointer; }
+    button:hover { background: #218838; }
+    .status { margin-top: 15px; text-align: center; font-weight: bold; }
   </style>
 </head>
 <body>
+  <div class="card">
+    <h2>Dízimos e Ofertas</h2>
+    <form id="contribForm">
+      <label for="nome">Nome (Opcional):</label>
+      <input type="text" id="nome" placeholder="Seu nome">
 
-  <main class="app">
-    <!-- Cabeçalho -->
-    <header class="app-header">
-      <a href="home.html" class="btn-back">← Voltar</a>
-      <h2>Contribuições</h2>
-      <div class="header-spacer"></div>
-    </header>
+      <label for="tipo">Tipo:</label>
+      <select id="tipo">
+        <option value="Entrada">Contribuição</option>
+      </select>
 
-    <div class="page-content">
-      
-      <!-- Mensagem Devocional -->
-      <div class="card-banner">
-        <h3 style="margin:0; font-size: 18px;">Cultive Generosidade</h3>
-        <p>"Cada um contribua segundo propôs no seu coração, não com tristeza ou por necessidade; porque Deus ama ao que dá com alegria."<br><b>(2 Co 9:7)</b></p>
-      </div>
+      <label for="categoria">Categoria:</label>
+      <select id="categoria">
+        <option value="Dízimo">Dízimo</option>
+        <option value="Oferta">Oferta</option>
+        <option value="Oferta Especial">Oferta Especial</option>
+      </select>
 
-      <!-- Caixa da Chave PIX -->
-      <div class="pix-box">
-        <span class="pix-tag">Chave PIX Oficial</span>
-        <div class="pix-key" id="chavePix">cadmondubim@gmail.com</div>
-        <button type="button" onclick="copiarChavePix()" class="btn-copy">
-          📋 COPIAR CHAVE PIX
-        </button>
-      </div>
+      <label for="valor">Valor (R$):</label>
+      <input type="number" id="valor" step="0.01" required placeholder="0.00">
 
-      <!-- Formulário de Registro de Contribuição -->
-      <div class="form-card">
-        <h3 style="margin: 0 0 16px 0; font-size: 15px;">Informe sua Contribuição</h3>
-        
-        <form id="formContribuicao" onsubmit="confirmarEnvio(event)">
-          
-          <!-- Seleção: Dízimo, Oferta ou Primícia -->
-          <div class="type-selector">
-            <div class="type-btn active" onclick="selecionarTipo(this, 'Dízimo')">
-              <span>⛪</span>
-              <small>Dízimo</small>
-            </div>
-            <div class="type-btn" onclick="selecionarTipo(this, 'Oferta')">
-              <span>❤️</span>
-              <small>Oferta</small>
-            </div>
-            <div class="type-btn" onclick="selecionarTipo(this, 'Primícia')">
-              <span>🌾</span>
-              <small>Primícia</small>
-            </div>
-          </div>
-
-          <input type="hidden" id="tipoSelecionado" value="Dízimo">
-
-          <div class="input-field">
-            <label for="nomeMembro">Seu Nome (Opcional)</label>
-            <input type="text" id="nomeMembro" placeholder="Ex: João Silva">
-          </div>
-
-          <div class="input-field">
-            <label for="valorDoacao">Valor Contribuído (R$)</label>
-            <input type="number" id="valorDoacao" step="0.01" min="1" placeholder="0,00" required>
-          </div>
-
-          <button type="submit" id="btnEnviar" class="btn btn-success" style="width: 100%;">
-            ✅ REGISTRAR CONTRIBUIÇÃO
-          </button>
-        </form>
-      </div>
-
-    </div>
-  </main>
+      <button type="submit">Enviar Contribuição</button>
+    </form>
+    <div id="status" class="status"></div>
+  </div>
 
   <script>
-    // Cole a URL do seu Google Apps Script entre as aspas abaixo:
-    const API_URL = "SUA_URL_DO_GOOGLE_APPS_SCRIPT_AQUI";
+    const API_URL = "https://script.google.com/macros/s/AKfycbz8lxH6Raz0qL4Ly-NgHD0n_Ai4o-P7MwJtGXjgwl8tO1fARZcGffsw7a4E9lU1SwM_/exec";
 
-    function selecionarTipo(elemento, tipo) {
-      document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
-      elemento.classList.add('active');
-      document.getElementById('tipoSelecionado').value = tipo;
-    }
-
-    function copiarChavePix() {
-      const chave = document.getElementById('chavePix').innerText;
-      navigator.clipboard.writeText(chave).then(() => {
-        alert('Chave PIX (cadmondubim@gmail.com) copiada com sucesso!');
-      }).catch(() => {
-        alert('Chave PIX: cadmondubim@gmail.com');
-      });
-    }
-
-    function confirmarEnvio(e) {
+    document.getElementById("contribForm").addEventListener("submit", function(e) {
       e.preventDefault();
-      const btn = document.getElementById('btnEnviar');
-      btn.innerText = "Registrando...";
-      btn.disabled = true;
+      const status = document.getElementById("status");
+      status.innerText = "Enviando...";
+      status.style.color = "#000";
 
-      const dados = {
-        tipo: "Entrada",
-        categoria: document.getElementById('tipoSelecionado').value,
-        valor: document.getElementById('valorDoacao').value,
-        nome: document.getElementById('nomeMembro').value || "Anônimo"
+      const data = {
+        nome: document.getElementById("nome").value,
+        tipo: document.getElementById("tipo").value,
+        categoria: document.getElementById("categoria").value,
+        valor: document.getElementById("valor").value
       };
-
-      if (API_URL === "SUA_URL_DO_GOOGLE_APPS_SCRIPT_AQUI") {
-        alert("Obrigado! Sua contribuição foi registrada no aplicativo.");
-        document.getElementById('formContribuicao').reset();
-        btn.innerText = "✅ REGISTRAR CONTRIBUIÇÃO";
-        btn.disabled = false;
-        return;
-      }
 
       fetch(API_URL, {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados)
+        body: JSON.stringify(data)
       })
       .then(() => {
-        alert("Obrigado! Sua contribuição foi registrada com sucesso.");
-        document.getElementById('formContribuicao').reset();
+        status.innerText = "Contribuição registrada com sucesso!";
+        status.style.color = "green";
+        document.getElementById("contribForm").reset();
       })
-      .catch(() => {
-        alert("Erro ao registrar no banco de dados. Tente novamente.");
-      })
-      .finally(() => {
-        btn.innerText = "✅ REGISTRAR CONTRIBUIÇÃO";
-        btn.disabled = false;
+      .catch(err => {
+        status.innerText = "Erro ao enviar. Tente novamente.";
+        status.style.color = "red";
       });
-    }
+    });
   </script>
-  <script src="app.js"></script>
 </body>
 </html>
