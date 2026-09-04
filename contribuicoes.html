@@ -199,7 +199,7 @@
             <input type="number" id="valorDoacao" step="0.01" min="1" placeholder="0,00" required>
           </div>
 
-          <button type="submit" class="btn btn-success" style="width: 100%;">
+          <button type="submit" id="btnEnviar" class="btn btn-success" style="width: 100%;">
             ✅ REGISTRAR CONTRIBUIÇÃO
           </button>
         </form>
@@ -209,6 +209,9 @@
   </main>
 
   <script>
+    // Cole a URL do seu Google Apps Script entre as aspas abaixo:
+    const API_URL = "SUA_URL_DO_GOOGLE_APPS_SCRIPT_AQUI";
+
     function selecionarTipo(elemento, tipo) {
       document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
       elemento.classList.add('active');
@@ -226,10 +229,42 @@
 
     function confirmarEnvio(e) {
       e.preventDefault();
-      const tipo = document.getElementById('tipoSelecionado').value;
-      const valor = document.getElementById('valorDoacao').value;
-      alert(`Obrigado! Sua contribuição de ${tipo} no valor de R$ ${valor} foi registrada.`);
-      document.getElementById('formContribuicao').reset();
+      const btn = document.getElementById('btnEnviar');
+      btn.innerText = "Registrando...";
+      btn.disabled = true;
+
+      const dados = {
+        tipo: "Entrada",
+        categoria: document.getElementById('tipoSelecionado').value,
+        valor: document.getElementById('valorDoacao').value,
+        nome: document.getElementById('nomeMembro').value || "Anônimo"
+      };
+
+      if (API_URL === "SUA_URL_DO_GOOGLE_APPS_SCRIPT_AQUI") {
+        alert("Obrigado! Sua contribuição foi registrada no aplicativo.");
+        document.getElementById('formContribuicao').reset();
+        btn.innerText = "✅ REGISTRAR CONTRIBUIÇÃO";
+        btn.disabled = false;
+        return;
+      }
+
+      fetch(API_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
+      })
+      .then(() => {
+        alert("Obrigado! Sua contribuição foi registrada com sucesso.");
+        document.getElementById('formContribuicao').reset();
+      })
+      .catch(() => {
+        alert("Erro ao registrar no banco de dados. Tente novamente.");
+      })
+      .finally(() => {
+        btn.innerText = "✅ REGISTRAR CONTRIBUIÇÃO";
+        btn.disabled = false;
+      });
     }
   </script>
   <script src="app.js"></script>
