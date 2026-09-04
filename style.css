@@ -1,5 +1,5 @@
 /* ======================================================
-   CAD CHURCH - STYLE.CSS (MELHORADO)
+   CAD CHURCH - STYLE.CSS (SISTEMA DE PÁGINAS INDEPENDENTES)
 ====================================================== */
 
 :root {
@@ -24,17 +24,17 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-body {
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Evita a rolagem global do navegador */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: #eef1f5;
+  background: #0f0f11;
   color: var(--text-dark);
-  line-height: 1.5;
 }
 
-button,
-input,
-textarea {
+button, input, textarea {
   font: inherit;
 }
 
@@ -48,138 +48,210 @@ button {
   display: none !important;
 }
 
-/* =========================
-   ESTRUTURA PRINCIPAL
-========================= */
+/* ======================================================
+   ESTRUTURA DE APLICATIVO & GERENCIAMENTO DE PÁGINAS
+====================================================== */
 
 .app {
   width: 100%;
-  max-width: 900px;
-  min-height: 100vh;
+  max-width: 500px; /* Sensação de aplicativo mobile em desktops */
+  height: 100vh;
   margin: 0 auto;
   background: var(--bg-main);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.06);
   position: relative;
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
-/* =========================
-   TELA INICIAL (SPLASH)
-========================= */
-
-.splash {
-  min-height: 100vh;
-  padding: 48px 24px;
+/* Sistema de Exibição de Telas */
+.page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  background: var(--bg-main);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.98);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 1;
+}
+
+.page.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+  z-index: 2;
+}
+
+/* Áreas de Rolagem Internas */
+.page-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  padding-bottom: 90px; /* Respiro para não cobrir o conteúdo com o menu fixo */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ======================================================
+   CABEÇALHO PADRÃO (HEADER FIXO)
+====================================================== */
+
+.app-header {
+  height: 64px;
+  padding: 0 16px;
+  background: var(--primary);
+  color: #ffffff;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: radial-gradient(circle at top, #2c2c2c 0%, #111111 100%);
-  color: #fff;
-}
-
-.splash img {
-  width: min(240px, 70vw);
-  border-radius: 20px;
-  margin-bottom: 24px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
-}
-
-.splash p {
-  margin: 0 0 32px;
-  opacity: 0.85;
-  font-size: 15px;
-  max-width: 320px;
-}
-
-.splash button,
-.cadastro form button {
-  width: min(360px, 100%);
-  padding: 16px 20px;
-  border-radius: var(--radius-md);
-  background: #ffffff;
-  color: #111111;
-  font-weight: 700;
-  font-size: 15px;
-  margin-top: 12px;
-  transition: var(--transition);
+  justify-content: space-between;
+  flex-shrink: 0;
   box-shadow: var(--shadow-sm);
 }
 
-.splash button:active,
-.cadastro form button:active {
-  transform: scale(0.98);
+.app-header h2 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.3px;
 }
 
-.splash button.secondary {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #fff;
-  backdrop-filter: blur(8px);
-}
-
-/* =========================
-   HOME & HEADER
-========================= */
-
-.home {
-  min-height: 100vh;
-  padding-bottom: 100px;
-}
-
-.home header {
-  padding: 32px 24px 28px;
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  align-items: center;
-  background: var(--primary);
-  color: #fff;
-  border-bottom-left-radius: var(--radius-lg);
-  border-bottom-right-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-}
-
-header small {
+.user-greeting small {
   opacity: 0.7;
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  display: block;
 }
 
-header h1 {
-  margin: 4px 0 0;
-  font-size: 26px;
+.user-greeting h1 {
+  margin: 0;
+  font-size: 20px;
   font-weight: 800;
   letter-spacing: -0.5px;
 }
 
-.tag,
-.etiqueta {
-  font-size: 11px;
-  font-weight: 800;
-  padding: 6px 14px;
-  border-radius: 99px;
+.btn-back {
   background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(4px);
-  text-transform: uppercase;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 99px;
+  font-size: 13px;
+  transition: var(--transition);
 }
 
-/* =========================
-   TRILHO MINISTERIAL
-========================= */
+.btn-back:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.25);
+}
 
-.trilho {
-  margin: 20px 20px 24px;
+.header-spacer {
+  width: 60px; /* Equilibra o botão de voltar no layout flex */
+}
+
+/* ======================================================
+   TELA INICIAL (SPLASH)
+====================================================== */
+
+.splash {
+  background: radial-gradient(circle at top, #2c2c2c 0%, #111111 100%);
+  color: #ffffff;
+}
+
+.splash-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.splash-logo {
+  width: min(220px, 65vw);
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.tagline {
+  margin: 0 0 32px;
+  opacity: 0.85;
+  font-size: 15px;
+}
+
+.splash-actions {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ======================================================
+   BOTÕES E COMPONENTES DE INTERAÇÃO
+====================================================== */
+
+.btn {
+  width: 100%;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 15px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: #ffffff;
+  color: var(--primary);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+}
+
+.btn-success {
+  background: #25d366;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+}
+
+.btn-success:hover {
+  background: #20bd5a;
+}
+
+/* ======================================================
+   CARD DO TRILHO MINISTERIAL
+====================================================== */
+
+.trilho-card {
   padding: 20px;
   border-radius: var(--radius-md);
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.trilho-card:active {
+  transform: scale(0.98);
 }
 
 .trilho-top {
@@ -188,22 +260,39 @@ header h1 {
   align-items: center;
 }
 
-.trilho span {
+.trilho-top span {
   display: block;
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.trilho strong {
+.trilho-top strong {
   display: block;
   margin-top: 2px;
   font-size: 18px;
 }
 
+.tag, .etiqueta {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+}
+
+.trilho-card .etiqueta {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+}
+
 .progress {
-  height: 10px;
+  height: 8px;
   margin: 16px 0 10px;
   border-radius: 99px;
   background: var(--bg-subtle);
@@ -219,37 +308,26 @@ header h1 {
   transition: width 0.4s ease;
 }
 
-.trilho small {
-  color: var(--text-muted);
-  font-size: 12px;
-}
-
-/* =========================
-   TÍTULO
-========================= */
+/* ======================================================
+   GRID DE ACESSO RÁPIDO (MÓDULOS)
+====================================================== */
 
 .section-title {
-  padding: 0 20px;
-  margin-bottom: 14px;
-  font-size: 18px;
+  margin: 0 0 14px 0;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: -0.3px;
 }
 
-/* =========================
-   CARDS PRINCIPAIS
-========================= */
-
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  padding: 0 20px 20px;
+  gap: 12px;
 }
 
 .grid button {
-  min-height: 120px;
-  padding: 20px;
+  min-height: 110px;
+  padding: 16px;
   text-align: left;
   border-radius: var(--radius-md);
   background: var(--bg-card);
@@ -257,73 +335,60 @@ header h1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 8px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
 
-.grid button:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: #d0d7de;
+.grid button:active {
+  transform: scale(0.96);
+  border-color: #c0c0c0;
 }
 
-.grid button:active {
-  transform: scale(0.97);
+.grid .icon {
+  font-size: 20px;
 }
 
 .grid b {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--text-dark);
+  display: block;
 }
 
 .grid small {
   color: var(--text-muted);
   font-size: 12px;
-  line-height: 1.3;
 }
 
-/* =========================
+/* ======================================================
    PAINEL ADMINISTRATIVO
-========================= */
+====================================================== */
 
 .admin-area {
-  margin: 20px;
-  padding: 20px;
+  margin-bottom: 24px;
+  padding: 18px;
   border-radius: var(--radius-lg);
   background: linear-gradient(145deg, #18181b, #27272a);
-  color: #fff;
+  color: #ffffff;
   box-shadow: var(--shadow-md);
 }
 
 .admin-header {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding-bottom: 16px;
-  margin-bottom: 16px;
+  gap: 12px;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .admin-header > span {
-  width: 46px;
-  height: 46px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.1);
-  font-size: 22px;
-}
-
-.admin-header div {
-  display: flex;
-  flex-direction: column;
+  font-size: 24px;
 }
 
 .admin-header strong {
-  font-size: 16px;
+  display: block;
+  font-size: 15px;
 }
 
 .admin-header small {
@@ -331,82 +396,46 @@ header h1 {
   font-size: 12px;
 }
 
-.admin-area > button {
+.admin-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-admin {
   width: 100%;
-  margin-top: 10px;
-  padding: 16px;
+  padding: 14px;
   border-radius: var(--radius-md);
   background: #ffffff;
   color: var(--text-dark);
-  display: flex;
-  align-items: center;
-  gap: 12px;
   text-align: left;
   transition: var(--transition);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.admin-area > button:hover {
-  transform: translateY(-2px);
-}
-
-.admin-area > button:active {
+.btn-admin:active {
   transform: scale(0.98);
 }
 
-.admin-area > button b {
-  font-size: 15px;
+.btn-admin b {
+  font-size: 14px;
   display: block;
 }
 
-.admin-area > button small {
+.btn-admin small {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 11px;
   display: block;
 }
 
-/* =========================
-   MÓDULOS E CONTEÚDO
-========================= */
+/* ======================================================
+   CONTEÚDO DOS MÓDULOS E FORMULÁRIOS
+====================================================== */
 
-.modulo {
-  margin: 20px;
-  padding: 24px;
-  border-radius: var(--radius-lg);
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
-}
-
-.modulo h2 {
-  margin: 16px 0 8px;
-  font-size: 22px;
-  letter-spacing: -0.3px;
-}
-
-.modulo p {
+.modulo-conteudo {
+  font-size: 15px;
   line-height: 1.6;
-  color: var(--text-muted);
-  font-size: 15px;
+  color: #333333;
 }
-
-.voltar {
-  background: var(--bg-subtle);
-  color: var(--text-dark);
-  font-weight: 600;
-  padding: 8px 16px;
-  border-radius: 99px;
-  font-size: 13px;
-  transition: var(--transition);
-}
-
-.voltar:active {
-  transform: scale(0.95);
-}
-
-/* =========================
-   FORMULÁRIO PEDIDO DE ORAÇÃO
-========================= */
 
 .pedido-oracao {
   display: flex;
@@ -417,267 +446,97 @@ header h1 {
   border-top: 1px solid var(--border-color);
 }
 
-.pedido-oracao label {
+.pedido-oracao label,
+.input-group label {
   font-weight: 700;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-dark);
+  display: block;
+  margin-bottom: 6px;
 }
 
-.pedido-oracao textarea {
+.pedido-oracao textarea,
+.input-group input {
   width: 100%;
   padding: 14px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
-  background: var(--bg-main);
-  resize: vertical;
+  background: var(--bg-card);
   outline: none;
   transition: var(--transition);
 }
 
-.pedido-oracao textarea:focus {
+.pedido-oracao textarea:focus,
+.input-group input:focus {
   border-color: var(--primary);
-  background: #ffffff;
 }
 
-.pedido-oracao button {
-  width: 100%;
-  padding: 16px;
-  border-radius: var(--radius-md);
-  background: #25d366; /* Cor WhatsApp */
-  color: #ffffff;
-  font-weight: 800;
-  font-size: 15px;
-  transition: var(--transition);
-  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
-}
-
-.pedido-oracao button:hover {
-  background: #20bd5a;
-}
-
-.pedido-oracao button:active {
-  transform: scale(0.98);
-}
-
-.pedido-oracao small {
-  color: var(--text-muted);
-  font-size: 12px;
-  text-align: center;
-}
-
-/* =========================
-   PERFIL
-========================= */
-
-.perfil-box {
+.form-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   margin-top: 16px;
 }
 
-.perfil-box p {
-  margin: 0;
-  padding: 14px;
-  background: var(--bg-main);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-color);
-  font-size: 14px;
-  color: var(--text-dark);
-}
-
-.perfil-box strong {
-  color: var(--text-muted);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.perfil-box button {
-  width: 100%;
-  padding: 14px;
-  border-radius: var(--radius-md);
-  background: var(--primary);
-  color: #fff;
-  font-weight: 700;
-  margin-top: 6px;
-  transition: var(--transition);
-}
-
-.perfil-box button:last-child {
-  background: #dc3545; /* Botão Sair vermelho */
-}
-
-/* =========================
-   GERENCIAR MEMBROS (ADMIN)
-========================= */
-
-.membro-admin {
-  padding: 14px;
-  background: var(--bg-main);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-color);
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.membro-admin strong {
-  font-size: 15px;
-}
-
-.membro-admin small {
+.hint {
   color: var(--text-muted);
   font-size: 12px;
+  text-align: center;
+  display: block;
 }
 
-/* =========================
-   MENU INFERIOR (NAVIGATION)
-========================= */
+/* ======================================================
+   MENU INFERIOR FIXO (NAV)
+====================================================== */
 
-nav {
-  position: fixed;
+.bottom-nav {
+  position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(900px, 100%);
+  left: 0;
+  width: 100%;
+  height: 65px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   border-top: 1px solid var(--border-color);
-  padding: 10px 14px;
-  z-index: 100;
+  z-index: 10;
 }
 
-nav button {
+.bottom-nav button {
   background: transparent;
-  padding: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  gap: 2px;
   color: var(--text-muted);
-  border-radius: var(--radius-sm);
   transition: var(--transition);
 }
 
-nav button:active {
-  transform: scale(0.92);
+.bottom-nav button.active,
+.bottom-nav button:active {
   color: var(--primary);
-}
-
-nav span {
-  font-size: 11px;
-  font-weight: 600;
-}
-
-/* =========================
-   CADASTRO
-========================= */
-
-.cadastro {
-  min-height: 100vh;
-  padding: 32px 24px;
-  background: var(--bg-card);
-}
-
-.cadastro h2 {
-  margin-top: 20px;
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-}
-
-.cadastro p {
-  color: var(--text-muted);
-}
-
-.cadastro form {
-  display: flex;
-  flex-direction: column;
-  margin-top: 24px;
-}
-
-.cadastro label {
-  font-size: 13px;
   font-weight: 700;
-  margin: 16px 0 6px;
 }
 
-.cadastro input {
-  width: 100%;
-  padding: 14px 16px;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  background: var(--bg-main);
-  outline: none;
-  transition: var(--transition);
+.bottom-nav i {
+  font-style: normal;
+  font-size: 18px;
 }
 
-.cadastro input:focus {
-  border-color: var(--primary);
-  background: #ffffff;
+.bottom-nav span {
+  font-size: 11px;
 }
 
-/* =========================
-   DESKTOP (TIRAS LARGAS)
-========================= */
+/* ======================================================
+   AJUSTES RESPONSIVOS (DESKTOP)
+====================================================== */
 
-@media (min-width: 700px) {
-  .grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .admin-area {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-  }
-
-  .admin-header {
-    grid-column: 1 / -1;
-    margin-bottom: 0;
-  }
-
-  .admin-area > button {
-    margin-top: 0;
-  }
-}
-
-/* =========================
-   CELULAR
-========================= */
-
-@media (max-width: 480px) {
-  .home header {
-    padding: 24px 20px;
-  }
-
-  header h1 {
-    font-size: 22px;
-  }
-
-  .tag {
-    display: none;
-  }
-
-  .trilho,
-  .admin-area,
-  .modulo {
-    margin: 14px;
-    padding: 18px;
-  }
-
-  .grid {
-    padding-left: 14px;
-    padding-right: 14px;
-    gap: 10px;
-  }
-
-  .grid button {
-    min-height: 110px;
-    padding: 16px;
+@media (min-width: 600px) {
+  .app {
+    border-radius: var(--radius-lg);
+    height: 92vh;
+    margin: 4vh auto;
   }
 }
