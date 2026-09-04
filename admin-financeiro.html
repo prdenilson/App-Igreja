@@ -1,70 +1,1053 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel Financeiro - CAD CHURCH</title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Financeiro — CAD CHURCH</title>
+
+  <link rel="stylesheet" href="style.css">
+
+
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
-    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
-    h2, h3 { text-align: center; color: #333; }
-    label { font-weight: bold; display: block; margin-top: 10px; color: #555; }
-    input, button { width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box; }
-    button { background: #007bff; color: white; border: none; font-weight: bold; margin-top: 15px; cursor: pointer; }
-    button:hover { background: #0056b3; }
-    .resumo { margin-top: 20px; background: #e9ecef; padding: 15px; border-radius: 5px; }
-    .resumo p { font-size: 16px; margin: 5px 0; font-weight: bold; }
-    .saldo { color: #28a745; }
-    .hidden { display: none; }
+
+    .finance-admin {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px 16px 100px;
+    }
+
+
+    .finance-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+
+    .finance-header h1 {
+      margin-bottom: 6px;
+    }
+
+
+    .finance-header p {
+      color: #666;
+    }
+
+
+    .finance-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    }
+
+
+    .login-card {
+      max-width: 430px;
+      margin: 40px auto;
+    }
+
+
+    .finance-form label {
+      display: block;
+      margin: 13px 0 6px;
+      font-weight: 600;
+    }
+
+
+    .finance-form input,
+    .finance-form select {
+
+      width: 100%;
+      box-sizing: border-box;
+
+      padding: 13px;
+
+      border: 1px solid #d5d5d5;
+
+      border-radius: 10px;
+
+      font-size: 16px;
+    }
+
+
+    .btn-primary,
+    .btn-danger,
+    .btn-secondary {
+
+      width: 100%;
+
+      padding: 13px;
+
+      border: 0;
+
+      border-radius: 10px;
+
+      color: white;
+
+      font-weight: bold;
+
+      font-size: 15px;
+
+      cursor: pointer;
+
+      margin-top: 16px;
+    }
+
+
+    .btn-primary {
+      background: #0d6efd;
+    }
+
+
+    .btn-danger {
+      background: #dc3545;
+    }
+
+
+    .btn-secondary {
+      background: #6c757d;
+    }
+
+
+    .hidden {
+      display: none !important;
+    }
+
+
+    .login-error {
+      color: #c00;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+
+    .resumo-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 15px;
+
+      margin-bottom: 20px;
+    }
+
+
+    .resumo-box {
+
+      padding: 20px;
+
+      border-radius: 15px;
+
+      text-align: center;
+
+      background: #f5f5f5;
+    }
+
+
+    .resumo-box span {
+
+      display: block;
+
+      font-size: 13px;
+
+      color: #666;
+
+      margin-bottom: 8px;
+    }
+
+
+    .resumo-box strong {
+
+      font-size: 21px;
+    }
+
+
+    .entrada strong {
+      color: #198754;
+    }
+
+
+    .saida strong {
+      color: #dc3545;
+    }
+
+
+    .saldo-box {
+
+      background: #eef7ff;
+
+      border: 1px solid #cfe2ff;
+    }
+
+
+    .saldo-box strong {
+      color: #0d6efd;
+    }
+
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+
+    table {
+
+      width: 100%;
+
+      border-collapse: collapse;
+
+      margin-top: 10px;
+
+      min-width: 650px;
+    }
+
+
+    th,
+    td {
+
+      padding: 12px;
+
+      border-bottom: 1px solid #eee;
+
+      text-align: left;
+
+      font-size: 14px;
+    }
+
+
+    th {
+      background: #f5f5f5;
+    }
+
+
+    .valor-entrada {
+      color: #198754;
+      font-weight: bold;
+    }
+
+
+    .valor-saida {
+      color: #dc3545;
+      font-weight: bold;
+    }
+
+
+    .vazio {
+
+      text-align: center;
+
+      padding: 25px;
+
+      color: #777;
+    }
+
+
+    .acoes {
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 12px;
+    }
+
+
+    @media (max-width: 650px) {
+
+      .resumo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .acoes {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
   </style>
+
 </head>
+
+
 <body>
-  <div class="card">
-    <h2>Painel da Tesouraria</h2>
 
-    <div id="loginSection">
-      <label for="pin">Digite a Senha de Acesso:</label>
-      <input type="password" id="pin" maxlength="4" placeholder="••••">
-      <button onclick="autenticar()">Entrar</button>
-      <p id="loginError" style="color: red; text-align: center; margin-top: 10px;"></p>
-    </div>
+  <div class="app">
 
-    <div id="dashboardSection" class="hidden">
-      <h3>Resumo de Saldos</h3>
-      <button onclick="carregarDados()">Atualizar Dados</button>
-      <div class="resumo">
-        <p>Total Entradas: R$ <span id="entradas">0.00</span></p>
-        <p>Total Saídas: R$ <span id="saidas">0.00</span></p>
-        <hr>
-        <p class="saldo">Saldo Atual: R$ <span id="saldo">0.00</span></p>
+    <header class="top-header">
+
+      <a
+        href="index.html"
+        class="btn-back"
+      >
+        ← Voltar
+      </a>
+
+      <div>
+
+        <h1>Financeiro</h1>
+
+        <p>
+          Administração da tesouraria
+        </p>
+
       </div>
-    </div>
+
+    </header>
+
+
+    <main class="finance-admin">
+
+
+      <!-- LOGIN -->
+
+      <section
+        id="loginSection"
+        class="finance-card login-card"
+      >
+
+        <h2>🔐 Acesso à Tesouraria</h2>
+
+        <p>
+          Área exclusiva da administração financeira.
+        </p>
+
+
+        <form
+          id="loginForm"
+          class="finance-form"
+        >
+
+          <label for="pin">
+            Senha de acesso
+          </label>
+
+          <input
+            type="password"
+            id="pin"
+            maxlength="4"
+            inputmode="numeric"
+            placeholder="Digite a senha"
+            required
+          >
+
+
+          <button
+            type="submit"
+            class="btn-primary"
+          >
+            Entrar
+          </button>
+
+        </form>
+
+
+        <p
+          id="loginError"
+          class="login-error"
+        ></p>
+
+      </section>
+
+
+
+      <!-- DASHBOARD -->
+
+      <section
+        id="dashboardSection"
+        class="hidden"
+      >
+
+
+        <div class="finance-header">
+
+          <h1>📊 Fluxo de Caixa</h1>
+
+          <p>
+            Controle financeiro da igreja
+          </p>
+
+        </div>
+
+
+        <!-- RESUMO -->
+
+        <div class="resumo-grid">
+
+
+          <div class="resumo-box entrada">
+
+            <span>
+              TOTAL DE ENTRADAS
+            </span>
+
+            <strong id="entradas">
+              R$ 0,00
+            </strong>
+
+          </div>
+
+
+          <div class="resumo-box saida">
+
+            <span>
+              TOTAL DE SAÍDAS
+            </span>
+
+            <strong id="saidas">
+              R$ 0,00
+            </strong>
+
+          </div>
+
+
+          <div class="resumo-box saldo-box">
+
+            <span>
+              SALDO ATUAL
+            </span>
+
+            <strong id="saldo">
+              R$ 0,00
+            </strong>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- AÇÕES -->
+
+        <section class="finance-card">
+
+          <h2>
+            Movimentação financeira
+          </h2>
+
+
+          <div class="acoes">
+
+            <button
+              class="btn-primary"
+              onclick="carregarDados()"
+            >
+              🔄 Atualizar Fluxo
+            </button>
+
+
+            <button
+              class="btn-danger"
+              onclick="mostrarFormularioSaida()"
+            >
+              ➖ Registrar Saída
+            </button>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- FORMULÁRIO SAÍDA -->
+
+        <section
+          id="saidaSection"
+          class="finance-card hidden"
+        >
+
+          <h2>
+            ➖ Registrar Saída
+          </h2>
+
+
+          <form
+            id="saidaForm"
+            class="finance-form"
+          >
+
+            <label for="categoriaSaida">
+              Categoria
+            </label>
+
+            <select
+              id="categoriaSaida"
+              required
+            >
+
+              <option value="">
+                Selecione
+              </option>
+
+              <option value="Despesa">
+                Despesa
+              </option>
+
+              <option value="Aluguel">
+                Aluguel
+              </option>
+
+              <option value="Energia">
+                Energia
+              </option>
+
+              <option value="Água">
+                Água
+              </option>
+
+              <option value="Material">
+                Material
+              </option>
+
+              <option value="Manutenção">
+                Manutenção
+              </option>
+
+              <option value="Outros">
+                Outros
+              </option>
+
+            </select>
+
+
+            <label for="descricaoSaida">
+              Descrição
+            </label>
+
+            <input
+              type="text"
+              id="descricaoSaida"
+              placeholder="Ex.: pagamento da conta de energia"
+              required
+            >
+
+
+            <label for="valorSaida">
+              Valor
+            </label>
+
+            <input
+              type="number"
+              id="valorSaida"
+              min="0.01"
+              step="0.01"
+              placeholder="R$ 0,00"
+              required
+            >
+
+
+            <button
+              type="submit"
+              class="btn-danger"
+            >
+              Registrar Saída
+            </button>
+
+
+            <button
+              type="button"
+              class="btn-secondary"
+              onclick="esconderFormularioSaida()"
+            >
+              Cancelar
+            </button>
+
+          </form>
+
+          <p id="saidaStatus"></p>
+
+        </section>
+
+
+
+        <!-- FLUXO DE CAIXA -->
+
+        <section class="finance-card">
+
+          <h2>
+            📋 Lançamentos
+          </h2>
+
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>Data</th>
+
+                  <th>Tipo</th>
+
+                  <th>Categoria</th>
+
+                  <th>Descrição / Nome</th>
+
+                  <th>Valor</th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody id="movimentacoes">
+
+                <tr>
+
+                  <td
+                    colspan="5"
+                    class="vazio"
+                  >
+                    Carregando...
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </section>
+
+
+      </section>
+
+    </main>
+
+
+    <nav class="bottom-nav">
+
+      <a href="index.html">
+
+        <span>⌂</span>
+
+        <small>
+          Início
+        </small>
+
+      </a>
+
+
+      <a href="trilho.html">
+
+        <span>✝</span>
+
+        <small>
+          Trilho
+        </small>
+
+      </a>
+
+
+      <a href="perfil.html">
+
+        <span>👤</span>
+
+        <small>
+          Perfil
+        </small>
+
+      </a>
+
+    </nav>
+
   </div>
 
+
+
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbz8lxH6Raz0qL4Ly-NgHD0n_Ai4o-P7MwJtGXjgwl8tO1fARZcGffsw7a4E9lU1SwM_/exec";
 
-    function autenticar() {
-      const pin = document.getElementById("pin").value;
-      if (pin === "1234") {
-        document.getElementById("loginSection").classList.add("hidden");
-        document.getElementById("dashboardSection").classList.remove("hidden");
-        carregarDados();
-      } else {
-        document.getElementById("loginError").innerText = "Senha incorreta!";
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbz8lxH6Raz0qL4Ly-NgHD0n_Ai4o-P7MwJtGXjgwl8tO1fARZcGffsw7a4E9lU1SwM_/exec";
+
+
+    /*
+      IMPORTANTE:
+      Esta senha ainda está no navegador.
+      Portanto, ela NÃO é uma proteção de segurança real.
+      Depois podemos colocar autenticação administrativa
+      de verdade.
+    */
+
+    const SENHA_ADMIN = "1234";
+
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+
+    loginForm.addEventListener(
+      "submit",
+      function(event) {
+
+        event.preventDefault();
+
+        const pin =
+          document.getElementById("pin").value;
+
+        const erro =
+          document.getElementById("loginError");
+
+
+        if (pin === SENHA_ADMIN) {
+
+          document
+            .getElementById("loginSection")
+            .classList.add("hidden");
+
+          document
+            .getElementById("dashboardSection")
+            .classList.remove("hidden");
+
+          carregarDados();
+
+        } else {
+
+          erro.textContent =
+            "Senha incorreta.";
+
+        }
+
       }
+    );
+
+
+
+    function mostrarFormularioSaida() {
+
+      document
+        .getElementById("saidaSection")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("saidaSection")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
     }
 
-    function carregarDados() {
-      fetch(API_URL)
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("entradas").innerText = data.entradas.toFixed(2);
-          document.getElementById("saidas").innerText = data.saidas.toFixed(2);
-          document.getElementById("saldo").innerText = data.saldo.toFixed(2);
-        })
-        .catch(err => alert("Erro ao carregar os dados financeiros."));
+
+
+    function esconderFormularioSaida() {
+
+      document
+        .getElementById("saidaSection")
+        .classList.add("hidden");
+
     }
+
+
+
+    function dinheiro(valor) {
+
+      return Number(valor || 0)
+        .toLocaleString(
+          "pt-BR",
+          {
+            style: "currency",
+            currency: "BRL"
+          }
+        );
+
+    }
+
+
+
+    async function carregarDados() {
+
+      const tabela =
+        document.getElementById("movimentacoes");
+
+
+      tabela.innerHTML = `
+        <tr>
+          <td colspan="5" class="vazio">
+            Atualizando...
+          </td>
+        </tr>
+      `;
+
+
+      try {
+
+        const resposta =
+          await fetch(API_URL);
+
+
+        const data =
+          await resposta.json();
+
+
+        document.getElementById("entradas")
+          .textContent =
+          dinheiro(data.entradas);
+
+
+        document.getElementById("saidas")
+          .textContent =
+          dinheiro(data.saidas);
+
+
+        document.getElementById("saldo")
+          .textContent =
+          dinheiro(data.saldo);
+
+
+
+        tabela.innerHTML = "";
+
+
+        if (
+          !data.movimentacoes ||
+          data.movimentacoes.length === 0
+        ) {
+
+          tabela.innerHTML = `
+            <tr>
+              <td colspan="5" class="vazio">
+                Nenhum lançamento registrado.
+              </td>
+            </tr>
+          `;
+
+          return;
+
+        }
+
+
+        data.movimentacoes.forEach(
+          function(item) {
+
+            const tr =
+              document.createElement("tr");
+
+
+            const classeValor =
+              item.tipo === "Entrada"
+                ? "valor-entrada"
+                : "valor-saida";
+
+
+            const sinal =
+              item.tipo === "Entrada"
+                ? "+"
+                : "-";
+
+
+            tr.innerHTML = `
+
+              <td>
+                ${item.data || ""}
+              </td>
+
+              <td>
+                ${item.tipo || ""}
+              </td>
+
+              <td>
+                ${item.categoria || ""}
+              </td>
+
+              <td>
+                ${item.nome || ""}
+              </td>
+
+              <td class="${classeValor}">
+                ${sinal} ${dinheiro(item.valor)}
+              </td>
+
+            `;
+
+
+            tabela.appendChild(tr);
+
+          }
+        );
+
+
+      } catch (erro) {
+
+        console.error(erro);
+
+
+        tabela.innerHTML = `
+          <tr>
+            <td colspan="5" class="vazio">
+              Erro ao carregar o fluxo de caixa.
+            </td>
+          </tr>
+        `;
+
+      }
+
+    }
+
+
+
+    document
+      .getElementById("saidaForm")
+      .addEventListener(
+        "submit",
+        async function(event) {
+
+          event.preventDefault();
+
+
+          const categoria =
+            document.getElementById(
+              "categoriaSaida"
+            ).value;
+
+
+          const descricao =
+            document.getElementById(
+              "descricaoSaida"
+            ).value.trim();
+
+
+          const valor =
+            parseFloat(
+              document.getElementById(
+                "valorSaida"
+              ).value
+            );
+
+
+          const status =
+            document.getElementById(
+              "saidaStatus"
+            );
+
+
+          if (!categoria || !descricao || !valor) {
+
+            status.style.color = "red";
+
+            status.textContent =
+              "Preencha todos os campos.";
+
+            return;
+
+          }
+
+
+          status.style.color = "#555";
+
+          status.textContent =
+            "Registrando saída...";
+
+
+          try {
+
+            const dados =
+              new URLSearchParams();
+
+
+            dados.append(
+              "tipo",
+              "Saída"
+            );
+
+
+            dados.append(
+              "categoria",
+              categoria
+            );
+
+
+            dados.append(
+              "valor",
+              valor.toFixed(2)
+            );
+
+
+            dados.append(
+              "nome",
+              descricao
+            );
+
+
+            const resposta =
+              await fetch(
+                API_URL,
+                {
+                  method: "POST",
+                  body: dados
+                }
+              );
+
+
+            const resultado =
+              await resposta.json();
+
+
+            if (
+              resultado.result !==
+              "success"
+            ) {
+
+              throw new Error(
+                resultado.message ||
+                "Erro ao registrar saída."
+              );
+
+            }
+
+
+            status.style.color =
+              "#198754";
+
+
+            status.textContent =
+              "✓ Saída registrada com sucesso.";
+
+
+            document
+              .getElementById("saidaForm")
+              .reset();
+
+
+            await carregarDados();
+
+
+            setTimeout(
+              esconderFormularioSaida,
+              1200
+            );
+
+
+          } catch (erro) {
+
+            console.error(erro);
+
+            status.style.color =
+              "#dc3545";
+
+            status.textContent =
+              "Não foi possível registrar a saída.";
+
+          }
+
+        }
+      );
+
   </script>
+
 </body>
+
 </html>
