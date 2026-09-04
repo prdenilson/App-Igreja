@@ -1,219 +1,385 @@
+/* =====================================================
+   CAD CHURCH — ESTILO PRINCIPAL
+===================================================== */
+
 :root {
   --primary: #111111;
-  --bg-main: #f8f9fa;
+  --primary-light: #222222;
+  --bg-main: #f5f6f8;
   --bg-card: #ffffff;
-  --text-dark: #1a1a1a;
-  --text-muted: #6c757d;
-  --border-color: #e9ecef;
+  --text-dark: #171717;
+  --text-muted: #70757d;
+  --border-color: #e6e8eb;
+  --success: #198754;
+  --danger: #dc3545;
+  --radius-sm: 10px;
   --radius-md: 16px;
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --radius-lg: 22px;
+  --shadow-sm: 0 3px 12px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.09);
 }
+
+
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #0f0f11;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eeeeee;
   color: var(--text-dark);
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+body {
+  overflow-x: hidden;
 }
 
-/* CONTAINER PRINCIPAL DO CELULAR */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+
+/* =====================================================
+   APLICATIVO
+===================================================== */
+
 .app {
   width: 100%;
-  max-width: 450px;
-  height: 100vh;
-  margin: 0 auto;
+  min-height: 100vh;
   background: var(--bg-main);
-  display: flex;
-  flex-direction: column;
   position: relative;
-  overflow: hidden; /* Trava a barra externa */
+  margin: 0 auto;
 }
 
-/* TELA SPLASH (INICIAL) */
-.bg-splash {
-  background: radial-gradient(circle at top, #2c2c2c 0%, #111111 100%);
-  color: #ffffff;
+
+/* =====================================================
+   TELAS
+===================================================== */
+
+.screen {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.screen.active {
+  display: flex;
+}
+
+
+/* =====================================================
+   SPLASH
+===================================================== */
+
+.splash-screen {
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  background: var(--primary);
 }
 
 .splash-content {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 32px 24px;
+  width: 100%;
+  max-width: 380px;
   text-align: center;
 }
 
 .splash-logo {
-  width: min(200px, 60vw);
+  width: min(78vw, 300px);
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
   border-radius: 20px;
-  margin-bottom: 16px;
-}
-
-.brand-title {
-  margin: 10px 0 0 0;
-  font-size: 28px;
-  letter-spacing: 1px;
 }
 
 .tagline {
-  margin: 4px 0 32px;
-  opacity: 0.8;
-  font-size: 15px;
+  color: #ffffff;
+  font-size: 17px;
+  margin-bottom: 35px;
+  opacity: 0.9;
 }
 
 .splash-actions {
   width: 100%;
-  max-width: 320px;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-/* ÁREA DE CONTEÚDO E ROLAGEM */
-.page-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-  padding-bottom: 90px; /* Garante que os cards não fiquem escondidos atrás do menu */
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Esconde a barra no Firefox */
+
+/* =====================================================
+   BOTÕES
+===================================================== */
+
+.btn {
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-/* ESCONDE A BARRA DE ROLAGEM NO CHROME, SAFARI E EDGE */
-.page-content::-webkit-scrollbar {
-  display: none;
+.btn:active {
+  transform: scale(0.98);
 }
 
-/* CABEÇALHO */
-.app-header {
-  height: 64px;
-  padding: 0 16px;
-  background: var(--primary);
+.btn-primary {
+  background: #ffffff;
+  color: #111111;
+}
+
+.btn-secondary {
+  background: transparent;
   color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.btn-success {
+  background: var(--success);
+  color: #ffffff;
+}
+
+
+/* =====================================================
+   CABEÇALHO
+===================================================== */
+
+.app-header {
+  min-height: 72px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
 }
 
+.app-header h1,
 .app-header h2 {
-  font-size: 17px;
   margin: 0;
 }
 
-.btn-back {
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-  padding: 8px 14px;
-  border-radius: 99px;
-  font-size: 13px;
-  font-weight: 600;
+.app-header h2 {
+  font-size: 19px;
+  text-align: center;
+  flex: 1;
 }
 
-.header-spacer {
-  width: 60px;
+.home-header {
+  align-items: center;
+}
+
+.user-greeting {
+  min-width: 0;
 }
 
 .user-greeting small {
-  opacity: 0.7;
-  font-size: 11px;
-  text-transform: uppercase;
+  display: block;
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-bottom: 4px;
 }
 
 .user-greeting h1 {
-  margin: 0;
-  font-size: 20px;
+  font-size: 22px;
+  line-height: 1.1;
 }
 
-.tag, .etiqueta {
-  font-size: 11px;
-  font-weight: 800;
-  padding: 6px 12px;
-  border-radius: 99px;
-  background: rgba(255, 255, 255, 0.15);
+.tag {
+  background: var(--primary);
   color: #ffffff;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
-/* CARDS DO TRILHO E GRID */
+.btn-back {
+  border: 0;
+  background: transparent;
+  color: var(--text-dark);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 4px;
+  white-space: nowrap;
+}
+
+.header-spacer {
+  width: 55px;
+}
+
+
+/* =====================================================
+   CONTEÚDO
+===================================================== */
+
+.page-content {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  flex: 1;
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
+.home-content {
+  padding-top: 18px;
+}
+
+.intro-block {
+  margin-bottom: 24px;
+}
+
+.intro-block h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.intro-block p {
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+
+/* =====================================================
+   TRILHO MINISTERIAL
+===================================================== */
+
 .trilho-card {
   display: block;
-  padding: 20px;
-  border-radius: var(--radius-md);
+  width: 100%;
   background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  color: var(--text-dark);
+  text-decoration: none;
+  padding: 18px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   margin-bottom: 24px;
 }
 
 .trilho-top {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
 .trilho-top span {
-  font-size: 11px;
-  color: var(--text-muted);
-  text-transform: uppercase;
   display: block;
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 5px;
 }
 
-.trilho-card .etiqueta {
-  background: var(--primary);
-  color: #ffffff;
+.trilho-top strong {
+  font-size: 18px;
+}
+
+.etiqueta {
+  background: #e9ecef;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
 }
 
 .progress {
+  width: 100%;
   height: 8px;
-  margin: 14px 0 8px;
-  border-radius: 99px;
   background: #e9ecef;
+  border-radius: 999px;
   overflow: hidden;
+  margin-bottom: 9px;
 }
 
 .progress span {
   display: block;
   height: 100%;
-  background: #111111;
+  width: 0;
+  background: var(--primary);
+  border-radius: inherit;
+  transition: width 0.3s ease;
 }
 
-.section-title {
-  font-size: 16px;
-  margin: 0 0 14px;
+.trilho-card small {
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.4;
 }
+
+
+/* =====================================================
+   TÍTULOS DE SEÇÃO
+===================================================== */
+
+.section-title {
+  font-size: 18px;
+  margin-bottom: 13px;
+}
+
+
+/* =====================================================
+   GRID DOS MÓDULOS
+===================================================== */
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
 .grid-card {
-  padding: 16px;
-  border-radius: var(--radius-md);
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  min-height: 145px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 7px;
+  padding: 18px;
+  background: var(--bg-card);
+  color: var(--text-dark);
+  text-decoration: none;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.grid-card:active {
+  transform: scale(0.98);
+}
+
+.grid-card:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .grid-card .icon {
-  font-size: 22px;
-  margin-bottom: 4px;
+  font-size: 29px;
+  line-height: 1;
+  margin-bottom: 5px;
 }
 
 .grid-card b {
@@ -223,52 +389,101 @@ a {
 .grid-card small {
   color: var(--text-muted);
   font-size: 12px;
+  line-height: 1.3;
 }
 
-/* BOTÕES E FORMULÁRIOS */
-.btn {
+
+/* =====================================================
+   ÁREA ADMINISTRATIVA
+===================================================== */
+
+.admin-area {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 16px;
-  border-radius: var(--radius-md);
-  font-weight: 700;
-  font-size: 15px;
-  border: 0;
-  cursor: pointer;
+  gap: 12px;
+  margin-bottom: 15px;
 }
 
-.btn-primary { background: #ffffff; color: var(--primary); }
-.btn-secondary { background: rgba(255,255,255,0.1); color: #ffffff; border: 1px solid rgba(255,255,255,0.2); }
-.btn-success { background: #25d366; color: #ffffff; width: 100%; }
+.admin-header > span {
+  font-size: 25px;
+}
 
-.input-group label {
+.admin-header strong,
+.admin-header small {
   display: block;
-  font-weight: 700;
-  margin-bottom: 8px;
+}
+
+.admin-header strong {
+  font-size: 15px;
+}
+
+.admin-header small {
+  color: var(--text-muted);
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.btn-admin {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 13px;
+  background: #fafafa;
+  color: var(--text-dark);
+  text-decoration: none;
+}
+
+.btn-admin span {
+  font-size: 21px;
+}
+
+.btn-admin b {
   font-size: 14px;
 }
 
-.input-group textarea {
-  width: 100%;
-  padding: 14px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-color);
-  font: inherit;
-  margin-bottom: 16px;
+.btn-admin small {
+  color: var(--text-muted);
+  font-size: 11px;
 }
 
-/* MENU INFERIOR FIXO */
+
+/* =====================================================
+   MENU INFERIOR
+===================================================== */
+
 .bottom-nav {
-  position: absolute;
+  position: fixed;
+  z-index: 50;
+  left: 50%;
   bottom: 0;
-  left: 0;
+  transform: translateX(-50%);
   width: 100%;
-  height: 60px;
+  max-width: 900px;
+  min-height: 70px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.97);
   border-top: 1px solid var(--border-color);
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.06);
 }
 
 .bottom-nav a {
@@ -276,25 +491,171 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 4px;
   color: var(--text-muted);
+  text-decoration: none;
   font-size: 11px;
+  font-weight: 600;
+}
+
+.bottom-nav a i {
+  font-style: normal;
+  font-size: 22px;
+  line-height: 1;
 }
 
 .bottom-nav a.active {
   color: var(--primary);
+}
+
+.bottom-nav a.active i {
+  font-size: 24px;
+}
+
+
+/* =====================================================
+   FORMULÁRIOS
+===================================================== */
+
+.form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.input-group {
+  margin-bottom: 17px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 13px;
   font-weight: 700;
 }
 
-.bottom-nav i {
-  font-style: normal;
-  font-size: 18px;
+.input-group input,
+.input-group textarea,
+.input-group select {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 13px;
+  border: 1px solid var(--border-color);
+  border-radius: 11px;
+  background: #ffffff;
+  color: var(--text-dark);
+  outline: none;
 }
 
-/* AJUSTE PARA DESKTOP */
-@media (min-width: 600px) {
+.input-group textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+  border-color: var(--primary);
+}
+
+
+/* =====================================================
+   UTILITÁRIOS
+===================================================== */
+
+.hidden {
+  display: none !important;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+
+/* =====================================================
+   RESPONSIVIDADE
+===================================================== */
+
+@media (min-width: 700px) {
+
+  body {
+    padding: 20px;
+  }
+
   .app {
-    border-radius: 20px;
-    height: 90vh;
-    margin: 5vh auto;
+    min-height: calc(100vh - 40px);
+    max-width: 900px;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .screen {
+    min-height: calc(100vh - 40px);
+  }
+
+  .splash-screen {
+    min-height: calc(100vh - 40px);
+  }
+
+  .bottom-nav {
+    max-width: 900px;
+    bottom: 20px;
+    border-radius: 0 0 22px 22px;
+  }
+
+  .page-content {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .admin-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .grid-card {
+    min-height: 155px;
+  }
+}
+
+
+/* =====================================================
+   TELAS PEQUENAS
+===================================================== */
+
+@media (max-width: 360px) {
+
+  .page-content {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .grid {
+    gap: 8px;
+  }
+
+  .grid-card {
+    min-height: 135px;
+    padding: 14px;
+  }
+
+  .grid-card .icon {
+    font-size: 25px;
+  }
+
+  .grid-card b {
+    font-size: 14px;
+  }
+
+  .grid-card small {
+    font-size: 11px;
   }
 }
