@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
+
+  <meta name="theme-color" content="#111111">
+
+  <title>Pedidos de Oração - CAD CHURCH</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="app">
+
+  <!-- CABEÇALHO -->
+  <header class="app-header">
+
+    <a href="index.html" class="btn-back">
+      ← Voltar
+    </a>
+
+    <h2>Pedidos de Oração</h2>
+
+    <div class="header-spacer"></div>
+
+  </header>
+
+
+  <!-- CONTEÚDO -->
+  <div class="page-content">
+
+    <div class="intro-block">
+
+      <h3>Estamos orando por você 🙏</h3>
+
+      <p>
+        Compartilhe seu pedido de oração.
+        Nossa equipe estará intercedendo por você.
+      </p>
+
+    </div>
+
+
+    <!-- FORMULÁRIO -->
+
+    <form
+      id="formOracao"
+      class="form-container"
+    >
+
+      <div class="input-group">
+
+        <label for="nomeOracao">
+          Seu nome
+        </label>
+
+        <input
+          id="nomeOracao"
+          type="text"
+          placeholder="Digite seu nome"
+        >
+
+      </div>
+
+
+      <div class="input-group">
+
+        <label for="textoOracao">
+          Pedido de oração
+        </label>
+
+        <textarea
+          id="textoOracao"
+          rows="7"
+          required
+          placeholder="Escreva aqui o motivo pelo qual você deseja oração..."
+        ></textarea>
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="btn btn-success"
+      >
+        🙏 ENVIAR PEDIDO DE ORAÇÃO
+      </button>
+
+    </form>
+
+
+    <!-- MENSAGEM -->
+
+    <div
+      id="mensagemSucesso"
+      class="hidden"
+      style="
+        margin-top: 18px;
+        padding: 16px;
+        border-radius: 16px;
+        background: #ffffff;
+        border: 1px solid #e6e8eb;
+        text-align: center;
+      "
+    >
+
+      <strong>
+        🙏 Pedido preparado!
+      </strong>
+
+      <p
+        style="
+          margin-top: 7px;
+          color: #70757d;
+          font-size: 13px;
+        "
+      >
+        O WhatsApp será aberto para você confirmar o envio.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- MENU INFERIOR -->
+
+  <nav class="bottom-nav">
+
+    <a
+      href="index.html"
+      class="active"
+    >
+
+      <i>⌂</i>
+
+      <span>
+        Início
+      </span>
+
+    </a>
+
+
+    <a href="trilho.html">
+
+      <i>🏷️</i>
+
+      <span>
+        Trilho
+      </span>
+
+    </a>
+
+
+    <a href="perfil.html">
+
+      <i>👤</i>
+
+      <span>
+        Perfil
+      </span>
+
+    </a>
+
+  </nav>
+
+</main>
+
+
+<script>
+
+  /* =====================================================
+     PEDIDO DE ORAÇÃO
+  ===================================================== */
+
+  document
+    .getElementById("formOracao")
+    .addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+
+      const nome =
+        document
+          .getElementById("nomeOracao")
+          .value
+          .trim();
+
+
+      const pedido =
+        document
+          .getElementById("textoOracao")
+          .value
+          .trim();
+
+
+      if (!pedido) {
+
+        alert(
+          "Por favor, escreva seu pedido de oração."
+        );
+
+        return;
+
+      }
+
+
+      const nomeFinal =
+        nome || "Membro da CAD CHURCH";
+
+
+      const mensagem =
+        `🙏 *PEDIDO DE ORAÇÃO - CAD CHURCH*
+
+Olá! Gostaria de solicitar oração.
+
+*Nome:* ${nomeFinal}
+
+*Pedido:*
+${pedido}`;
+
+
+      const url =
+        "https://wa.me/?text=" +
+        encodeURIComponent(mensagem);
+
+
+      document
+        .getElementById("mensagemSucesso")
+        .classList
+        .remove("hidden");
+
+
+      window.open(
+        url,
+        "_blank"
+      );
+
+    });
+
+</script>
+
+</body>
+
+</html>
