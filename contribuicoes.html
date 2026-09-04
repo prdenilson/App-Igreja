@@ -3,77 +3,326 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CAD CHURCH - Contribuições</title>
+
+  <title>Contribuições — CAD CHURCH</title>
+
+  <link rel="stylesheet" href="style.css">
+
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
-    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-    h2 { text-align: center; color: #333; margin-bottom: 20px; }
-    label { font-weight: bold; display: block; margin-top: 10px; color: #555; }
-    input, select, button { width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box; }
-    button { background: #28a745; color: white; border: none; font-weight: bold; margin-top: 15px; cursor: pointer; }
-    button:hover { background: #218838; }
-    .status { margin-top: 15px; text-align: center; font-weight: bold; }
+    .finance-page {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px 16px 100px;
+    }
+
+    .finance-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.08);
+      margin-bottom: 20px;
+    }
+
+    .finance-card h2 {
+      margin-top: 0;
+    }
+
+    .finance-intro {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .finance-intro h1 {
+      margin-bottom: 8px;
+    }
+
+    .finance-intro p {
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .finance-form label {
+      display: block;
+      margin: 14px 0 6px;
+      font-weight: 600;
+    }
+
+    .finance-form input,
+    .finance-form select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px;
+      border: 1px solid #d5d5d5;
+      border-radius: 10px;
+      font-size: 16px;
+      background: #fff;
+    }
+
+    .finance-form button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 14px;
+      border: 0;
+      border-radius: 10px;
+      background: #198754;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .finance-form button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .status {
+      display: none;
+      margin-top: 16px;
+      padding: 13px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .status.success {
+      display: block;
+      background: #e8f7ee;
+      color: #16703c;
+    }
+
+    .status.error {
+      display: block;
+      background: #fdecec;
+      color: #a11;
+    }
+
+    .security-note {
+      font-size: 13px;
+      color: #777;
+      text-align: center;
+      margin-top: 18px;
+    }
   </style>
 </head>
+
 <body>
-  <div class="card">
-    <h2>Dízimos e Ofertas</h2>
-    <form id="contribForm">
-      <label for="nome">Nome (Opcional):</label>
-      <input type="text" id="nome" placeholder="Seu nome">
 
-      <label for="tipo">Tipo:</label>
-      <select id="tipo">
-        <option value="Entrada">Contribuição</option>
-      </select>
+  <div class="app">
 
-      <label for="categoria">Categoria:</label>
-      <select id="categoria">
-        <option value="Dízimo">Dízimo</option>
-        <option value="Oferta">Oferta</option>
-        <option value="Oferta Especial">Oferta Especial</option>
-      </select>
+    <header class="top-header">
+      <a href="index.html" class="btn-back">← Voltar</a>
 
-      <label for="valor">Valor (R$):</label>
-      <input type="number" id="valor" step="0.01" required placeholder="0.00">
+      <div>
+        <h1>Contribuições</h1>
+        <p>Dízimos e ofertas</p>
+      </div>
+    </header>
 
-      <button type="submit">Enviar Contribuição</button>
-    </form>
-    <div id="status" class="status"></div>
+
+    <main class="finance-page">
+
+      <section class="finance-intro">
+        <h1>🙏 Dízimos e Ofertas</h1>
+        <p>
+          Registre sua contribuição. O lançamento será enviado
+          diretamente para o sistema financeiro da igreja.
+        </p>
+      </section>
+
+
+      <section class="finance-card">
+
+        <form id="contribForm" class="finance-form">
+
+          <label for="nome">
+            Nome
+          </label>
+
+          <input
+            type="text"
+            id="nome"
+            placeholder="Seu nome (opcional)"
+          >
+
+
+          <label for="categoria">
+            Tipo de contribuição
+          </label>
+
+          <select id="categoria" required>
+            <option value="Dízimo">Dízimo</option>
+            <option value="Oferta">Oferta</option>
+            <option value="Oferta Especial">Oferta Especial</option>
+          </select>
+
+
+          <label for="valor">
+            Valor da contribuição
+          </label>
+
+          <input
+            type="number"
+            id="valor"
+            min="0.01"
+            step="0.01"
+            placeholder="R$ 0,00"
+            required
+          >
+
+
+          <button type="submit" id="btnEnviar">
+            Registrar Contribuição
+          </button>
+
+        </form>
+
+        <div id="status" class="status"></div>
+
+        <p class="security-note">
+          Seu lançamento será registrado como entrada na tesouraria.
+        </p>
+
+      </section>
+
+    </main>
+
+
+    <nav class="bottom-nav">
+
+      <a href="index.html">
+        <span>⌂</span>
+        <small>Início</small>
+      </a>
+
+      <a href="trilho.html">
+        <span>✝</span>
+        <small>Trilho</small>
+      </a>
+
+      <a href="perfil.html">
+        <span>👤</span>
+        <small>Perfil</small>
+      </a>
+
+    </nav>
+
   </div>
 
+
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbz8lxH6Raz0qL4Ly-NgHD0n_Ai4o-P7MwJtGXjgwl8tO1fARZcGffsw7a4E9lU1SwM_/exec";
 
-    document.getElementById("contribForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const status = document.getElementById("status");
-      status.innerText = "Enviando...";
-      status.style.color = "#000";
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbz8lxH6Raz0qL4Ly-NgHD0n_Ai4o-P7MwJtGXjgwl8tO1fARZcGffsw7a4E9lU1SwM_/exec";
 
-      const data = {
-        nome: document.getElementById("nome").value,
-        tipo: document.getElementById("tipo").value,
-        categoria: document.getElementById("categoria").value,
-        valor: document.getElementById("valor").value
-      };
 
-      fetch(API_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      })
-      .then(() => {
-        status.innerText = "Contribuição registrada com sucesso!";
-        status.style.color = "green";
-        document.getElementById("contribForm").reset();
-      })
-      .catch(err => {
-        status.innerText = "Erro ao enviar. Tente novamente.";
-        status.style.color = "red";
+    document
+      .getElementById("contribForm")
+      .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const nome =
+          document.getElementById("nome").value.trim();
+
+        const categoria =
+          document.getElementById("categoria").value;
+
+        const valor =
+          parseFloat(document.getElementById("valor").value);
+
+        const status =
+          document.getElementById("status");
+
+        const botao =
+          document.getElementById("btnEnviar");
+
+
+        status.className = "status";
+        status.textContent = "";
+
+        if (!valor || valor <= 0) {
+
+          status.className = "status error";
+          status.textContent =
+            "Informe um valor válido.";
+
+          return;
+        }
+
+
+        botao.disabled = true;
+        botao.textContent = "Registrando...";
+
+
+        try {
+
+          /*
+            Usamos URLSearchParams para evitar
+            o problema de preflight CORS do
+            Content-Type application/json.
+          */
+
+          const dados = new URLSearchParams();
+
+          dados.append("tipo", "Entrada");
+          dados.append("categoria", categoria);
+          dados.append("valor", valor.toFixed(2));
+          dados.append("nome", nome);
+
+
+          const resposta = await fetch(API_URL, {
+
+            method: "POST",
+
+            body: dados
+
+          });
+
+
+          const resultado = await resposta.json();
+
+
+          if (resultado.result !== "success") {
+
+            throw new Error(
+              resultado.message ||
+              "Não foi possível registrar a contribuição."
+            );
+
+          }
+
+
+          status.className = "status success";
+
+          status.textContent =
+            "✓ Contribuição registrada com sucesso!";
+
+
+          document
+            .getElementById("contribForm")
+            .reset();
+
+
+        } catch (erro) {
+
+          console.error(erro);
+
+          status.className = "status error";
+
+          status.textContent =
+            "Não foi possível registrar. Tente novamente.";
+
+        } finally {
+
+          botao.disabled = false;
+          botao.textContent = "Registrar Contribuição";
+
+        }
+
       });
-    });
+
   </script>
+
 </body>
 </html>
