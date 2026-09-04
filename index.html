@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+  <title>CAD CHURCH</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="app">
+
+  <!-- TELA INICIAL -->
+  <section class="splash" id="splash">
+
+    <img src="logo-cad-church.jpg"
+         alt="CAD CHURCH - Somos Casa de Deus">
+
+    <p>Somos Casa de Deus</p>
+
+    <button onclick="entrar()">ENTRAR</button>
+
+    <button class="secondary" onclick="primeiroAcesso()">
+      PRIMEIRO ACESSO
+    </button>
+
+  </section>
+
+
+  <!-- HOME -->
+  <section class="home hidden" id="home">
+
+    <header>
+
+      <div>
+        <small>Bem-vindo(a) à nossa casa</small>
+        <h1 id="nome">Membro</h1>
+      </div>
+
+      <div class="tag">
+        CAD CHURCH
+      </div>
+
+    </header>
+
+
+    <!-- TRILHO -->
+    <section class="trilho">
+
+      <div class="trilho-top">
+
+        <div>
+          <span>Seu Trilho Ministerial</span>
+
+          <strong id="trilhoNivel">
+            VISITANTE
+          </strong>
+        </div>
+
+        <div class="etiqueta" id="trilhoCor">
+          AZUL
+        </div>
+
+      </div>
+
+      <div class="progress">
+        <span id="progresso"></span>
+      </div>
+
+      <small id="progressoTexto">
+        Seu progresso aparecerá aqui conforme você avançar.
+      </small>
+
+    </section>
+
+
+    <h2 class="section-title">
+      Acesso rápido
+    </h2>
+
+<section class="admin-area hidden" id="adminArea">
+
+  <div class="admin-header">
+    <span>👑</span>
+
+    <div>
+      <strong>Painel Administrativo</strong>
+      <small>Área exclusiva do administrador</small>
+    </div>
+  </div>
+
+  <button onclick="abrirModulo('adminMembros')">
+    👥
+    <b>Membros</b>
+    <small>Gerenciar membros da igreja</small>
+  </button>
+
+  <button onclick="abrirModulo('adminAgenda')">
+    📅
+    <b>Gerenciar Agenda</b>
+    <small>Criar e organizar eventos</small>
+  </button>
+
+  <button onclick="abrirModulo('adminAvisos')">
+    📢
+    <b>Gerenciar Avisos</b>
+    <small>Publicar comunicados</small>
+  </button>
+
+</section>
+
+
+    <!-- MÓDULOS -->
+    <div class="grid">
+
+      <button onclick="abrirModulo('agenda')">
+        📅
+        <b>Agenda</b>
+        <small>Programações</small>
+      </button>
+
+      <button onclick="abrirModulo('oracao')">
+        🙏
+        <b>Oração</b>
+        <small>Pedidos de oração</small>
+      </button>
+
+      <button onclick="abrirModulo('estudos')">
+        📖
+        <b>Estudos</b>
+        <small>Estudos bíblicos</small>
+      </button>
+
+      <button onclick="abrirModulo('contribuicoes')">
+        💰
+        <b>Contribuições</b>
+        <small>Dízimos e ofertas</small>
+      </button>
+
+      <button onclick="abrirModulo('cultos')">
+        ⛪
+        <b>Cultos</b>
+        <small>Horários</small>
+      </button>
+
+      <button onclick="abrirModulo('avisos')">
+        📢
+        <b>Avisos</b>
+        <small>Comunicados</small>
+      </button>
+
+      <button onclick="abrirModulo('ministerios')">
+        👥
+        <b>Ministérios</b>
+        <small>Serviço</small>
+      </button>
+
+      <button onclick="abrirModulo('perfil')">
+        👤
+        <b>Meu Perfil</b>
+        <small>Meus dados</small>
+      </button>
+
+    </div>
+
+<section class="admin-area hidden" id="adminArea">
+
+  <div class="admin-header">
+    <span>👑</span>
+    <div>
+      <strong>Painel Administrativo</strong>
+      <small>Área exclusiva do administrador</small>
+    </div>
+  </div>
+
+  <button onclick="abrirModulo('adminMembros')">
+    👥
+    <b>Membros</b>
+    <small>Gerenciar membros da igreja</small>
+  </button>
+
+  <button onclick="abrirModulo('adminAgenda')">
+    📅
+    <b>Gerenciar Agenda</b>
+    <small>Criar e organizar eventos</small>
+  </button>
+
+  <button onclick="abrirModulo('adminAvisos')">
+    📢
+    <b>Gerenciar Avisos</b>
+    <small>Publicar comunicados</small>
+  </button>
+
+</section>
+
+
+    <!-- ÁREA DO MÓDULO -->
+    <section class="modulo hidden" id="modulo">
+
+  <button class="voltar" onclick="fecharModulo()">
+    ← Voltar
+  </button>
+
+  <h2 id="moduloTitulo"></h2>
+
+  <p id="moduloTexto"></p>
+
+  <div id="pedidoOracao" class="pedido-oracao hidden">
+
+    <label for="textoOracao">
+      🙏 Escreva seu pedido de oração
+    </label>
+
+    <textarea
+      id="textoOracao"
+      rows="7"
+      placeholder="Digite aqui o motivo pelo qual você deseja oração..."
+    ></textarea>
+
+    <button
+      type="button"
+      onclick="enviarPedidoOracao()"
+    >
+      🙏 ENVIAR PEDIDO DE ORAÇÃO
+    </button>
+
+    <small>
+      Seu pedido será encaminhado pelo WhatsApp.
+    </small>
+
+  </div>
+
+</section>
+
+    <!-- MENU INFERIOR -->
+    <nav>
+
+      <button onclick="mostrarHome()">
+        ⌂
+        <span>Início</span>
+      </button>
+
+      <button onclick="abrirModulo('trilho')">
+        🏷️
+        <span>Trilho</span>
+      </button>
+
+      <button onclick="abrirModulo('perfil')">
+        👤
+        <span>Perfil</span>
+      </button>
+
+    </nav>
+
+  </section>
+
+
+  <!-- PRIMEIRO ACESSO -->
+  <section class="cadastro hidden" id="cadastro">
+
+    <button class="voltar" onclick="voltarSplash()">
+      ← Voltar
+    </button>
+
+    <h2>Primeiro Acesso</h2>
+
+    <p>
+      Cadastre seus dados para entrar no CAD CHURCH.
+    </p>
+
+
+    <form onsubmit="salvarCadastro(event)">
+
+      <label for="cadNome">
+        Nome completo
+      </label>
+
+      <input
+        id="cadNome"
+        required
+        placeholder="Digite seu nome"
+      >
+
+    
+
+      <label for="cadTelefone">
+        Telefone
+      </label>
+
+      <input
+        id="cadTelefone"
+        type="tel"
+        placeholder="(00) 00000-0000"
+      >
+
+
+      <button type="submit">
+        CRIAR MEU ACESSO
+      </button>
+
+    </form>
+
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
