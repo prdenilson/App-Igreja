@@ -3,213 +3,555 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
   <meta name="theme-color" content="#111111">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
   <title>CAD CHURCH</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<main class="app" id="app">
+<main class="app">
 
-  <!-- PÁGINA 1: SPLASH / ENTRADA -->
-  <section class="page active" id="splash">
+  <!-- ==================================================
+       TELA INICIAL
+  =================================================== -->
+  <section class="screen splash-screen" id="splash">
+
     <div class="splash-content">
-      <img src="logo-cad-church.jpg" alt="CAD CHURCH - Somos Casa de Deus" class="splash-logo">
+
+      <img
+        src="logo-cad-church.jpg"
+        alt="CAD CHURCH - Somos Casa de Deus"
+        class="splash-logo"
+      >
+
       <p class="tagline">Somos Casa de Deus</p>
 
       <div class="splash-actions">
-        <button class="btn btn-primary" onclick="entrar()">ENTRAR</button>
-        <button class="btn btn-secondary" onclick="primeiroAcesso()">PRIMEIRO ACESSO</button>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="entrar()"
+        >
+          ENTRAR
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          onclick="primeiroAcesso()"
+        >
+          PRIMEIRO ACESSO
+        </button>
+
       </div>
+
     </div>
+
   </section>
 
 
-  <!-- PÁGINA 2: PRIMEIRO ACESSO / CADASTRO -->
-  <section class="page" id="cadastro">
+  <!-- ==================================================
+       PRIMEIRO ACESSO
+  =================================================== -->
+  <section class="screen" id="cadastro">
+
     <header class="app-header">
-      <button class="btn-back" onclick="voltarSplash()">← Voltar</button>
+
+      <button
+        type="button"
+        class="btn-back"
+        onclick="voltarSplash()"
+      >
+        ← Voltar
+      </button>
+
       <h2>Primeiro Acesso</h2>
+
       <div class="header-spacer"></div>
+
     </header>
 
     <div class="page-content">
-      <p class="subtitle">Cadastre seus dados para entrar no CAD CHURCH.</p>
 
-      <form onsubmit="salvarCadastro(event)" class="form-container">
+      <div class="intro-block">
+
+        <h3>Seja bem-vindo!</h3>
+
+        <p>
+          Cadastre seus dados para acessar o CAD CHURCH.
+        </p>
+
+      </div>
+
+      <form
+        onsubmit="salvarCadastro(event)"
+        class="form-container"
+      >
+
         <div class="input-group">
-          <label for="cadNome">Nome completo</label>
-          <input id="cadNome" required placeholder="Digite seu nome">
+
+          <label for="cadNome">
+            Nome completo
+          </label>
+
+          <input
+            id="cadNome"
+            type="text"
+            autocomplete="name"
+            required
+            placeholder="Digite seu nome"
+          >
+
         </div>
 
+
         <div class="input-group">
-          <label for="cadTelefone">Telefone</label>
-          <input id="cadTelefone" type="tel" placeholder="(00) 00000-0000">
+
+          <label for="cadTelefone">
+            Telefone
+          </label>
+
+          <input
+            id="cadTelefone"
+            type="tel"
+            autocomplete="tel"
+            placeholder="(00) 00000-0000"
+          >
+
         </div>
 
-        <button type="submit" class="btn btn-primary">CRIAR MEU ACESSO</button>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+        >
+          CRIAR MEU ACESSO
+        </button>
+
       </form>
+
     </div>
+
   </section>
 
 
-  <!-- PÁGINA 3: HOME / INÍCIO -->
-  <section class="page" id="home">
-    <header class="app-header">
+  <!-- ==================================================
+       HOME
+  =================================================== -->
+  <section class="screen" id="home">
+
+    <header class="app-header home-header">
+
       <div class="user-greeting">
-        <small>Bem-vindo(a) à nossa casa</small>
-        <h1 id="nome">Membro</h1>
+
+        <small>
+          Bem-vindo(a) à nossa casa
+        </small>
+
+        <h1 id="nome">
+          Membro
+        </h1>
+
       </div>
-      <div class="tag">CAD CHURCH</div>
+
+      <div class="tag">
+        CAD CHURCH
+      </div>
+
     </header>
 
-    <div class="page-content">
-      <!-- TRILHO MINISTERIAL -->
-      <section class="trilho-card" onclick="abrirModulo('trilho')">
+
+    <div class="page-content home-content">
+
+      <!-- ==================================================
+           TRILHO MINISTERIAL
+      =================================================== -->
+
+      <a
+        href="trilho.html"
+        class="trilho-card"
+      >
+
         <div class="trilho-top">
+
           <div>
-            <span>Seu Trilho Ministerial</span>
-            <strong id="trilhoNivel">VISITANTE</strong>
+
+            <span>
+              Seu Trilho Ministerial
+            </span>
+
+            <strong id="trilhoNivel">
+              VISITANTE
+            </strong>
+
           </div>
-          <div class="etiqueta" id="trilhoCor">AZUL</div>
+
+          <div
+            class="etiqueta"
+            id="trilhoCor"
+          >
+            AZUL
+          </div>
+
         </div>
+
 
         <div class="progress">
-          <span id="progresso"></span>
+
+          <span
+            id="progresso"
+            style="width: 0%;"
+          ></span>
+
         </div>
 
-        <small id="progressoTexto">Seu progresso aparecerá aqui conforme você avançar.</small>
-      </section>
 
-      <!-- PAINEL ADMINISTRATIVO (SE FOR ADMIN) -->
-      <section class="admin-area hidden" id="adminArea">
+        <small id="progressoTexto">
+          Seu progresso aparecerá aqui conforme você avançar.
+        </small>
+
+      </a>
+
+
+      <!-- ==================================================
+           ÁREA ADMINISTRATIVA
+      =================================================== -->
+
+      <section
+        class="admin-area hidden"
+        id="adminArea"
+      >
+
         <div class="admin-header">
+
           <span>👑</span>
+
           <div>
-            <strong>Painel Administrativo</strong>
-            <small>Área exclusiva do administrador</small>
+
+            <strong>
+              Painel Administrativo
+            </strong>
+
+            <small>
+              Área exclusiva do administrador
+            </small>
+
           </div>
+
         </div>
+
 
         <div class="admin-grid">
-          <button class="btn-admin" onclick="abrirModulo('adminMembros')">
-            👥 <b>Membros</b>
-            <small>Gerenciar membros da igreja</small>
-          </button>
 
-          <button class="btn-admin" onclick="abrirModulo('adminAgenda')">
-            📅 <b>Agenda</b>
-            <small>Criar e organizar eventos</small>
-          </button>
+          <a
+            href="admin-membros.html"
+            class="btn-admin"
+          >
 
-          <button class="btn-admin" onclick="window.location.href='admin-financeiro.html'">
-            💼 <b>Tesouraria</b>
-            <small>Acessar painel financeiro</small>
-          </button>
+            <span>👥</span>
+
+            <b>
+              Membros
+            </b>
+
+            <small>
+              Gerenciar membros da igreja
+            </small>
+
+          </a>
+
+
+          <a
+            href="admin-agenda.html"
+            class="btn-admin"
+          >
+
+            <span>📅</span>
+
+            <b>
+              Agenda
+            </b>
+
+            <small>
+              Criar e organizar eventos
+            </small>
+
+          </a>
+
+
+          <a
+            href="admin-financeiro.html"
+            class="btn-admin"
+          >
+
+            <span>💼</span>
+
+            <b>
+              Tesouraria
+            </b>
+
+            <small>
+              Acessar painel financeiro
+            </small>
+
+          </a>
+
         </div>
+
       </section>
 
-      <h2 class="section-title">Acesso rápido</h2>
 
-      <!-- GRID DE MÓDULOS -->
+      <!-- ==================================================
+           ACESSO RÁPIDO
+      =================================================== -->
+
+      <h2 class="section-title">
+        Acesso rápido
+      </h2>
+
+
       <div class="grid">
-        <button onclick="abrirModulo('agenda')">
-          <span class="icon">📅</span>
-          <b>Agenda</b>
-          <small>Programações</small>
-        </button>
 
-        <button onclick="abrirModulo('oracao')">
-          <span class="icon">🙏</span>
-          <b>Oração</b>
-          <small>Pedidos de oração</small>
-        </button>
 
-        <button onclick="abrirModulo('estudos')">
-          <span class="icon">📖</span>
-          <b>Estudos</b>
-          <small>Estudos bíblicos</small>
-        </button>
+        <!-- AGENDA -->
 
-        <button onclick="window.location.href='contribuicoes.html'">
-          <span class="icon">💰</span>
-          <b>Contribuições</b>
-          <small>Dízimos e ofertas</small>
-        </button>
+        <a
+          href="agenda.html"
+          class="grid-card"
+        >
 
-        <button onclick="abrirModulo('cultos')">
-          <span class="icon">⛪</span>
-          <b>Cultos</b>
-          <small>Horários</small>
-        </button>
+          <span class="icon">
+            📅
+          </span>
 
-        <button onclick="abrirModulo('avisos')">
-          <span class="icon">📢</span>
-          <b>Avisos</b>
-          <small>Comunicados</small>
-        </button>
+          <b>
+            Agenda
+          </b>
 
-        <button onclick="abrirModulo('ministerios')">
-          <span class="icon">👥</span>
-          <b>Ministérios</b>
-          <small>Serviço</small>
-        </button>
+          <small>
+            Programações
+          </small>
 
-        <button onclick="window.location.href='admin-financeiro.html'">
-          <span class="icon">💼</span>
-          <b>Tesouraria</b>
-          <small>Painel Financeiro</small>
-        </button>
+        </a>
+
+
+        <!-- ORAÇÃO -->
+
+        <a
+          href="oracao.html"
+          class="grid-card"
+        >
+
+          <span class="icon">
+            🙏
+          </span>
+
+          <b>
+            Oração
+          </b>
+
+          <small>
+            Pedidos de oração
+          </small>
+
+        </a>
+
+
+        <!-- ESTUDOS -->
+
+        <a
+          href="estudos.html"
+          class="grid-card"
+        >
+
+          <span class="icon">
+            📖
+          </span>
+
+          <b>
+            Estudos
+          </b>
+
+          <small>
+            Estudos bíblicos
+          </small>
+
+        </a>
+
+
+        <!-- CONTRIBUIÇÕES -->
+
+        <a
+          href="contribuicoes.html"
+          class="grid-card"
+        >
+
+          <span class="icon">
+            💰
+          </span>
+
+          <b>
+            Contribuições
+          </b>
+
+          <small>
+            Dízimos e ofertas
+          </small>
+
+        </a>
+
+
+        <!-- CULTOS -->
+
+        <a
+          href="cultos.html"
+          class="grid-card"
+        >
+
+          <span class="icon">
+            ⛪
+          </span>
+
+          <b>
+            Cultos
+          </b>
+
+          <small>
+            Horários
+          </small>
+
+        </a>
+
+
+        <!-- AVISOS -->
+
+        <a
+          href="avisos.html"
+          class="grid-card"
+        >
+
+          <span class="icon">
+            📢
+          </span>
+
+          <b>
+            Avisos
+          </b>
+
+          <small>
+            Comunicados
+          </small>
+
+        </a>
+
+
+        <!-- MINISTÉRIOS -->
+
+        <a
+          href="ministerios.html"
+          class="grid-card"
+        >
+
+          <span class="icon">
+            👥
+          </span>
+
+          <b>
+            Ministérios
+          </b>
+
+          <small>
+            Serviço
+          </small>
+
+        </a>
+
+
+        <!-- TESOURARIA -->
+
+        <a
+          href="admin-financeiro.html"
+          class="grid-card"
+        >
+
+          <span class="icon">
+            💼
+          </span>
+
+          <b>
+            Tesouraria
+          </b>
+
+          <small>
+            Painel financeiro
+          </small>
+
+        </a>
+
       </div>
+
     </div>
 
-    <!-- MENU INFERIOR FIXO DA HOME -->
+
+    <!-- ==================================================
+         MENU INFERIOR
+    =================================================== -->
+
     <nav class="bottom-nav">
-      <button onclick="mostrarHome()" class="active">
+
+      <a
+        href="index.html"
+        class="active"
+      >
+
         <i>⌂</i>
-        <span>Início</span>
-      </button>
 
-      <button onclick="abrirModulo('trilho')">
+        <span>
+          Início
+        </span>
+
+      </a>
+
+
+      <a href="trilho.html">
+
         <i>🏷️</i>
-        <span>Trilho</span>
-      </button>
 
-      <button onclick="abrirModulo('perfil')">
+        <span>
+          Trilho
+        </span>
+
+      </a>
+
+
+      <a href="perfil.html">
+
         <i>👤</i>
-        <span>Perfil</span>
-      </button>
+
+        <span>
+          Perfil
+        </span>
+
+      </a>
+
     </nav>
-  </section>
 
-
-  <!-- PÁGINA 4: PÁGINA INDEPENDENTE DO MÓDULO -->
-  <section class="page" id="modulo">
-    <header class="app-header">
-      <button class="btn-back" onclick="mostrarHome()">← Voltar</button>
-      <h2 id="moduloTitulo">CAD CHURCH</h2>
-      <div class="header-spacer"></div>
-    </header>
-
-    <div class="page-content">
-      <div id="moduloTexto" class="modulo-conteudo"></div>
-
-      <!-- FORMULÁRIO DEDICADO DE ORAÇÃO -->
-      <div id="pedidoOracao" class="pedido-oracao hidden">
-        <label for="textoOracao">🙏 Escreva seu pedido de oração</label>
-        <textarea id="textoOracao" rows="6" placeholder="Digite aqui o motivo pelo qual você deseja oração..."></textarea>
-        <button type="button" class="btn btn-success" onclick="enviarPedidoOracao()">
-          🙏 ENVIAR PEDIDO DE ORAÇÃO
-        </button>
-        <small class="hint">Seu pedido será encaminhado pelo WhatsApp.</small>
-      </div>
-    </div>
   </section>
 
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- ==================================================
+     JAVASCRIPT
+=================================================== -->
+
 <script src="app.js"></script>
 
 </body>
